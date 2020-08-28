@@ -1,0 +1,11 @@
+faci  
+   FACILITIES                     PRICE                           
+0. swimming pool                  0
+1. free wifi                      0
+2. extra shower                   100 per head
+3. camp fire                      500 per 50kg wood
+4. house on rent                  3000 per day
+5. vehicles on rent               5000 per day
+6. tour guid                      500 per day
+
+

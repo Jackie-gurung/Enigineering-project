@@ -1,8 +1,23 @@
+NAME :ashok jaiswal
+DATE :12/12/2077
+MOBILE NO :9815266652123456
+ID.NO :123456
+TRAVEL AGENCY :kojo tours and travels
+EMAIL ID :jaiswalashok757@gmail.com
+2number of rooms were booked of 0type and total amounts to4000
 
-0
-0
+NAME :erty ytre
+DATE :443322
+MOBILE NO :234456654344444
+ID.NO :44444
+TRAVEL AGENCY :fsfsf
+EMAIL ID :fdfffref
+2number of rooms were booked of 2type and total amounts to11000
 
-1
-1
-the total amount is	3500
-payment bank acc is	00
+NAME :ravi jaiswal
+DATE :12/4/2076
+MOBILE NO :9876543210333444
+ID.NO :333444
+TRAVEL AGENCY :eomo tours and travels
+EMAIL ID :fffff
+2number of rooms were booked of 3type and total amounts to2000

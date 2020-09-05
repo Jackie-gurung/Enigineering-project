@@ -41,11 +41,11 @@ void customer::availableroom()
     	getline(avfile,avr);
 	}
     avfile.close();
-    cout<<"press 0 key to exit";
-    cin>>z;
-    
-     
+   
+    getch();
 }
+
+
 
 
 void customer::bookroom()
@@ -91,21 +91,29 @@ void customer::bookroom()
           
           cout<<"***************CONGRATULATION YOUR ROOM HAS BEEN BOOKED************"<<endl;
 		  cout<<"************* PLEASE PAY THE CASH AT THE TIME OF CHECKIN************"<<endl;
-          cout<<"press 0to continue    ";
-          cin>>z;
+           getch();
          }
         else
 		{
 			cout<<"SORRY!! THEIR IS  NOT ENOUGH ROOM AVAILABLE AT THIS MAOMENT"<<endl;
 			cout<<"PLEASE HAVE A LOOK IN AVAILABLE ROOMS LIST";
-			cin>>z;
+			 getch();
 		 } 
+  int counter;
+    fstream recfile("record.txt",ios::app);
+    recfile<<endl;
+    recfile<<"NAME :"<<cname<<endl;
+    recfile<<"DATE :"<<date<<endl;
+    recfile<<"MOBILE NO :"<<mob_no<<endl;
+    recfile<<"ID.NO :"<<idno<<endl;
+    recfile<<"TRAVEL AGENCY :"<<tname<<endl;
+    recfile<<"EMAIL ID :"<<email<<endl;
+    recfile<<rt<<"number of rooms were booked of "<<rn<<"type and total amounts to"<<proom[rn]*rt<<endl;
+    recfile.close();
+}
   
-  }
   
- // rcfile<<cname<<"\n"<<mob_no<<"\n"<<idno<<"\n"<<occu<<"\n"<<rn<<"\n"<<rt<<"\n";
-  //rcfile<<"the total amount is"<<"\t"<<proom[rn]*rt<<"\n";
-  //rcfile.close();
+ 
 
 void customer::otherfaci()
 {  
@@ -136,8 +144,7 @@ void customer::otherfaci()
 	}
     cout<<endl;
     cout<<"THE TOTAL AMOUNT OF YOUR FACILITIES ARE    :"<<tfac<<endl;
-    cout<<"press 0 to continue   ";
-    cin>>z;
+     getch();
 }
 
 int main()

@@ -5,17 +5,12 @@ class Main {
 
     public:
         char name[20];
-        long contact{0};
-        // long identityNo{0};
-        int roomNo{0};
+        char contact[10];
+        int roomNo;
     // methods 
         void menu1();
         void adminMenu();
         void customerMenu();
-
-        // Main(); //Default constructor
-
-    
 };
 
 class Admin : public Main {
@@ -42,5 +37,6 @@ class Customer : public Main{
         void availableRoom();
         void bookRoom();
         void otherFaci();
+        void finalbill();
 };
 

@@ -78,7 +78,6 @@ void Admin::AeditRecord()
         {
             std::cout << "\n\n\n\t\tWrong Choice...";
             std::cout << "\n\tPress Enter Key To Continue...";
-            // int ch = std::cin.get();
             getch();
             goto topedit;
         }
@@ -108,7 +107,7 @@ void Admin::EditCR(){
     {
         position = infile.tellg();
         infile.read((char*)this,sizeof(Main));
-        if(roomNo = r){
+        if(roomNo == r){
             std::cout << "\n Now, \nYou can edit record of person living in the particular room.\n Enter new details";
             std::cout << " Name : ";
             std::cin >> name;
@@ -128,69 +127,53 @@ void Admin::EditCR(){
 
     std::cout << "\n\tPress Enter Key To Continue...";
     getch();
-    // int ch = std::cin.get();
+    
 }
 
 void Admin::DeleteCR()
 {
     char ch;
     system("CLS");
+    int flag = 0;
+
     std::fstream infile;
-    infile.open("Record.dat" , std::ios::in | std::ios::out);
+    infile.open("Record.dat" , std::ios::in);
+    infile.seekg(0, std::ios::beg);
 
     std::cout << "Enter room no. to delete record" << std::endl;
     int r;
-    std::cin >> r;
-
-    int flag = 0;
+    std::cin >> r; 
 
     if (!infile)
     {
         std::cout << "Unable to open file." << std::endl;
         exit(1);
-    }
-
-    while (!infile.eof())
-    {
-        infile.read((char *)this, sizeof(Main));
-        if (roomNo = r)
+    }else{
+        std::ofstream outf("temp.dat", std::ios::app | std::ios::binary);
+        while (infile.read((char *) this, sizeof(Main)))
         {
-            std::cout << "\nRoom no. : " <<roomNo;
-            std::cout << "\n Name : " << name;
-            std::cout << "\n Phone No." << contact;
-            std::cout << "\n Are you sure you want to delete this record ? (y/n)";
-            std::cin >> ch;
-            if (ch == 'n' || ch == 'N')
-            {
-                AeditRecord();
-            }
-            else if (ch == 'y' || ch == 'Y')
-            {
-                infile.write((char *)this, sizeof(Main));
-                flag =1;
-            }
+            if (roomNo == r)
+                flag = 1;
             else
-            {
-                std::cout << "\n\n\n\t\tWrong Choice...";
-                std::cout << "\n\tPress Enter Key To Continue...";
-                getch();
-                AeditRecord();
-            }
+                outf.write((char *)this, sizeof(Main));
+        }
+        infile.close();
+        outf.close();
+        if (flag == 0)
+        {
+            remove("temp.dat");
+            std::cout << "\n\t\tNo such record exists";
+        }
+        else
+        {
+            remove("record.dat");
+            rename("temp.dat", "record.dat");
+            std::cout << "\n\t\tRecord deleted successfully";
         }
     }
 
-    infile.close();
-    if (flag == 0)
-        std::cout << "\n Sorry room no. not found or vacant...!!";
-    else
-    {
-        remove("Record.dat");
-        rename("temp.dat", "Record.dat");
-    }
-    
     std::cout << "\n\tPress Enter Key To Continue...";
     getch();
-    // int ch = std::cin.get();
 }
 
 
@@ -208,16 +191,16 @@ void Admin::ResetAll()
     else if (ch == 'y' || ch == 'Y'){
         std::ofstream outfile;
         outfile.open("Record.dat");
-        outfile << ""<< std::endl;
+        outfile<<""<<std::endl;
         outfile.close();
     }else{
         std::cout << "\n\n\n\t\tWrong Choice...";
         std::cout << "\n\tPress Enter Key To Continue...";
-        int ch = std::cin.get();
+        getch();
+        AeditRecord();
     }
     std::cout << "\n\tPress Enter Key To Continue...";
     getch();
-    // int ch = std::cin.get();
 }
 
 
@@ -245,7 +228,6 @@ void Admin::AviewRoom()
               << std::setw(20) << std::left << "Room"
               << std::setw(20) << std::left << "Name"
               << std::setw(20) << std::left << "Contact"
-              //   << std::setw(20) << std::left << "Passport/Citizenship no."
               << std::endl;
 
     std::cout << std::setw(totalWidth) << std::setfill('-') << "" << std::endl;
@@ -263,10 +245,10 @@ void Admin::AviewRoom()
                   //   << std::setw(20) << std::left << identityNo
                   << std::endl;
     }
-
+    infile.close();
     std::cout << "\n\tPress Enter Key To Continue...";
     getch();
-    infile.close();
-    // int ch = std::cin.get();
+
+    system("cls");
 }
 

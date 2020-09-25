@@ -5,6 +5,7 @@
 
 // first page 
 void Main::menu1(){
+    top1:
     system("CLS");
     int selection{};
     do{
@@ -28,6 +29,7 @@ void Main::menu1(){
                 std::cout << "\n\n\n\t\tWrong Choice...";
                 std::cout << "\n\tPress Enter Key To Continue..."; 
                 int ch = std::cin.get();
+                goto top1;
             }   
         }
     }while(selection != 0);
@@ -67,6 +69,7 @@ void Admin::login(){
 }
 
 void Admin::Amenu1(){
+    top2:
     system("CLS");
     int selection;
     do{
@@ -98,7 +101,8 @@ void Admin::Amenu1(){
             std::cout << "\n\n\n\t\tWrong Choice...";
             std::cout << "\n\tPress Enter Key To Continue...";
             getch();
-            // int ch = std::cin.get();
+            goto top2;
+            
         }
         }
     }while(selection != 0);
@@ -115,12 +119,14 @@ void Customer::Cmenu1()
     top3:
     system("cls");
     int selection;
-    std::cout << "PLEASE SELECT ONE" << std::endl;
-    std::cout << "1.   VIEW AVAILABLE ROOM" << std::endl;
-    std::cout << "2.   BOOK ROOM" << std::endl; //CUSTOMER PAGE
-    std::cout << "3.   OTHER FACILITIES" << std::endl;
-    std::cout << "4.   EXIT" << std::endl;
-    std::cout << "PLEASE ENTER YOUR CHOICE   :";
+    std::cout << "\n\t -------HOTEL Aa-Ka-Ma-------" << std::endl;
+    std::cout << "\n\n------------------ ADMIN -------------------------" << std::endl;
+    std::cout << "1.   View room" << std::endl;
+    std::cout << "2.   Book room" << std::endl; //CUSTOMER PAGE
+    std::cout << "3.   Other facilities" << std::endl;
+    std::cout << "4.   final bill" << std::endl;
+    std::cout << "0.   Exit" << std::endl;
+    std::cout << "\n\n\t\tEnter Your Choice: ";
     std::cin >> selection;
     switch (selection)
     {
@@ -137,11 +143,17 @@ void Customer::Cmenu1()
         goto top3;
         break;
     case 4:
+        finalbill();
+        goto top3;
+        break;
+    case 0:
         exit(1);
+        goto top3;
         break;
     default:
         std::cout << "\n\n\n\t\tWrong Choice...";
         std::cout << "\n\tPress Enter Key To Continue...";
         getch();
+        goto top3;
     }
 }

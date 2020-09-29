@@ -2,10 +2,10 @@
 #include<iostream>
 
 class Main {
-
     public:
         char name[20];
         char contact[10];
+        int id{0};
         int roomNo;
     // methods 
         void menu1();
@@ -22,11 +22,12 @@ class Admin : public Main {
         void AviewRecord();
         void AeditRecord();
         void AviewRoom();
+        void Acheckinlist();
 
         //menu of edit record
         void EditCR();
         void DeleteCR();
-        void ResetAll();
+        // void ResetAll();
 };
 
 class Customer : public Main{
@@ -34,9 +35,11 @@ class Customer : public Main{
         void Cmenu1();
 
         int check(int);
+        int checkb(int,int);
         void availableRoom();
         void bookRoom();
         void otherFaci();
-        void finalbill();
+        void checkin();
+        void checkout();
 };
 

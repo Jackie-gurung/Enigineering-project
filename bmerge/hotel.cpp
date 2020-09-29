@@ -75,9 +75,10 @@ void Admin::Amenu1(){
     do{
         std::cout << "\n\t -------HOTEL Aa-Ka-Ma-------" << std::endl;
         std::cout << "\n\n------------------ ADMIN -------------------------" << std::endl;
-        std::cout << "\n\n\t\t1. View Customer's Record.";
-        std::cout << "\n\t\t2. Edit Customer's Record";
-        std::cout << "\n\t\t3. View Allocated Room";
+        std::cout << "\n\n\t\t1. View Customer's Booking Record.";
+        std::cout << "\n\t\t2. Edit Customer's Booking Record";
+        std::cout << "\n\t\t3. View Booked Room";
+        std::cout << "\n\t\t4. View checked in list";
         std::cout << "\n\t\t0. Exit";
         std::cout << "\n\n\t\tEnter Your Choice: ";
         std::cin >> selection;
@@ -92,6 +93,9 @@ void Admin::Amenu1(){
             break;
         case 3:
             AviewRoom();
+            break;
+        case 4:
+            Acheckinlist();
             break;
         case 0:
             exit(1);
@@ -120,11 +124,12 @@ void Customer::Cmenu1()
     system("cls");
     int selection;
     std::cout << "\n\t -------HOTEL Aa-Ka-Ma-------" << std::endl;
-    std::cout << "\n\n------------------ ADMIN -------------------------" << std::endl;
+    std::cout << "\n\n------------------ CUSTOMER -------------------------" << std::endl;
     std::cout << "1.   View room" << std::endl;
     std::cout << "2.   Book room" << std::endl; //CUSTOMER PAGE
     std::cout << "3.   Other facilities" << std::endl;
-    std::cout << "4.   final bill" << std::endl;
+    std::cout << "4.   checkin" << std::endl;
+    std::cout << "5.   checkout" << std::endl;
     std::cout << "0.   Exit" << std::endl;
     std::cout << "\n\n\t\tEnter Your Choice: ";
     std::cin >> selection;
@@ -143,7 +148,11 @@ void Customer::Cmenu1()
         goto top3;
         break;
     case 4:
-        finalbill();
+        checkin();
+        goto top3;
+        break;
+    case 5:
+        checkout();
         goto top3;
         break;
     case 0:

@@ -8,9 +8,9 @@
 void Admin::AviewRecord(){
     system("CLS");
     std::ifstream infile;
-    infile.open("record.dat",std::ios::in);
+    infile.open("record.bin",std::ios::in);
     
-    std::string title{"Customer's Record of Hotel Aa-Ka-Ma"};
+    std::string title{"Customer's Booking Record of Hotel Aa-Ka-Ma"};
     int titleWidth = sizeof(title);
     int totalWidth {75};
 
@@ -21,7 +21,9 @@ void Admin::AviewRecord(){
     std::cout << std::setw(5)  << std::left << "S.N"
               << std::setw(20) << std::left << "Name"
               << std::setw(20) << std::left << "Contact"
-              << std::setw(5)  << std::right << "Room" << std::endl;
+              << std::setw(20) << std::left << "ID no." 
+              << std::setw(5)  << std::right << "Room"
+              << std::endl;
 
     std::cout << std::setw(totalWidth) << std::setfill('-') << "" << std::endl;
     std::cout << std::setfill(' ');
@@ -39,8 +41,56 @@ void Admin::AviewRecord(){
         sncount++;
         std::cout << std::setw(5) << std::left << sncount
                   << std::setw(20) << std::left << name
-                  << std::setw(20) << std::left<< contact
-                  << std::setw(5)  << std::right << roomNo << std::endl;
+                  << std::setw(20) << std::left << contact
+                  << std::setw(20) << std::left << id
+                  << std::setw(5)  << std::right << roomNo 
+                  << std::endl;
+    }
+    std::cout << "\n\tPress Enter Key To Continue...";
+    getch();
+    system("cls");
+}
+
+void Admin::Acheckinlist(){
+    system("CLS");
+    std::ifstream infile;
+    infile.open("recordc.bin",std::ios::in);
+    
+    std::string title{"Customer's checkin list of Hotel Aa-Ka-Ma"};
+    int titleWidth = sizeof(title);
+    int totalWidth {75};
+
+    std::cout << std::setw((totalWidth - titleWidth) / 2) << "" << title << std::endl << std::endl;
+    std::cout << std::setw(totalWidth) << std::setfill('-') << "" << std::endl;
+    std::cout << std::setfill(' ');
+
+    std::cout << std::setw(5)  << std::left << "S.N"
+              << std::setw(20) << std::left << "Name"
+              << std::setw(20) << std::left << "Contact"
+              << std::setw(20) << std::left << "ID no." 
+              << std::setw(5)  << std::right << "Room"
+              << std::endl;
+
+    std::cout << std::setw(totalWidth) << std::setfill('-') << "" << std::endl;
+    std::cout << std::setfill(' ');
+
+    if (!infile)
+    {
+        std::cout << "Unable to open file." << std::endl;
+        exit(1);
+    }
+
+    int sncount {0};
+    while (!infile.eof())
+    {
+        infile.read((char*)this,sizeof(Main));
+        sncount++;
+        std::cout << std::setw(5) << std::left << sncount
+                  << std::setw(20) << std::left << name
+                  << std::setw(20) << std::left << contact
+                  << std::setw(20) << std::left << id
+                  << std::setw(5)  << std::right << roomNo 
+                  << std::endl;
     }
     std::cout << "\n\tPress Enter Key To Continue...";
     getch();
@@ -52,10 +102,9 @@ void Admin::AeditRecord()
     topedit:
     system("CLS");
     int selection;
-        std::cout << "\n\t ------- Edit record -------" << std::endl;
+        std::cout << "\n\t ------- Edit Booking record -------" << std::endl;
         std::cout << "\n\n\t\t1. Edit Customer's Record.";
         std::cout << "\n\t\t2. Delete Customer's Record";
-        std::cout << "\n\t\t3. Re-set all";
         std::cout << "\n\t\t0. Exit";
         std::cout << "\n\n\t\tEnter Your Choice: ";
         std::cin >> selection;
@@ -67,9 +116,6 @@ void Admin::AeditRecord()
             goto topedit;
         case 2:
             DeleteCR();
-            goto topedit;
-        case 3:
-            ResetAll();
             goto topedit;
         case 0:
             Amenu1();
@@ -88,7 +134,7 @@ void Admin::AeditRecord()
 void Admin::EditCR(){
     system("CLS");
     std::fstream infile;
-    infile.open("Record.dat", std::ios::in | std::ios::out | std::ios::binary);
+    infile.open("Record.bin", std::ios::in | std::ios::out | std::ios::binary);
 
     long position;
     long flag{0};
@@ -113,6 +159,8 @@ void Admin::EditCR(){
             std::cin >> name;
             std::cout << " Phone No : ";
             std::cin >> contact;
+            std::cout << " Passport / citizenship no. : ";
+            std::cin >> id;
             infile.seekg(position);
             infile.write((char*)this,sizeof(Main));
             std::cout << "\n\n editing Record successful.";
@@ -137,7 +185,7 @@ void Admin::DeleteCR()
     int flag = 0;
 
     std::fstream infile;
-    infile.open("Record.dat" , std::ios::in);
+    infile.open("Record.bin" , std::ios::in);
     infile.seekg(0, std::ios::beg);
 
     std::cout << "Enter room no. to delete record" << std::endl;
@@ -149,7 +197,7 @@ void Admin::DeleteCR()
         std::cout << "Unable to open file." << std::endl;
         exit(1);
     }else{
-        std::ofstream outf("temp.dat", std::ios::app | std::ios::binary);
+        std::ofstream outf("temp.bin", std::ios::app | std::ios::binary);
         while (infile.read((char *) this, sizeof(Main)))
         {
             if (roomNo == r)
@@ -161,13 +209,13 @@ void Admin::DeleteCR()
         outf.close();
         if (flag == 0)
         {
-            remove("temp.dat");
+            remove("temp.bin");
             std::cout << "\n\t\tNo such record exists";
         }
         else
         {
-            remove("record.dat");
-            rename("temp.dat", "record.dat");
+            remove("record.bin");
+            rename("temp.bin", "record.bin");
             std::cout << "\n\t\tRecord deleted successfully";
         }
     }
@@ -177,38 +225,41 @@ void Admin::DeleteCR()
 }
 
 
-void Admin::ResetAll()
-{
-    system("CLS");
-    char ch;
-    Admin reset;
-    reset.login();
-    std::cout << "\nAre you sure you want to reset records?(y/n):";
-    std::cin >> ch;
-    if(ch == 'n' || ch == 'N'){
-        AeditRecord();
-    }
-    else if (ch == 'y' || ch == 'Y'){
-        std::ofstream outfile;
-        outfile.open("Record.dat");
-        outfile<<""<<std::endl;
-        outfile.close();
-    }else{
-        std::cout << "\n\n\n\t\tWrong Choice...";
-        std::cout << "\n\tPress Enter Key To Continue...";
-        getch();
-        AeditRecord();
-    }
-    std::cout << "\n\tPress Enter Key To Continue...";
-    getch();
-}
+// void Admin::ResetAll()
+// {
+//     system("CLS");
+//     char ch;
+//     Admin reset;
+//     reset.login();
+//     std::cout << "\nAre you sure you want to reset records?(y/n):";
+//     std::cin >> ch;
+//     if(ch == 'n' || ch == 'N'){
+//         AeditRecord();
+//     }
+//     else if (ch == 'y' || ch == 'Y'){
+        
+//         std::ofstream outf("temp.bin", std::ios::app | std::ios::binary);
+//         outf.close();
+
+//         remove("record.bin");
+//         rename("temp.bin", "record.bin");
+        
+//     }else{
+//         std::cout << "\n\n\n\t\tWrong Choice...";
+//         std::cout << "\n\tPress Enter Key To Continue...";
+//         getch();
+//         AeditRecord();
+//     }
+//     std::cout << "\n\tPress Enter Key To Continue...";
+//     getch();
+// }
 
 
 void Admin::AviewRoom()
 {
     system("CLS");
     std::ifstream infile;
-    infile.open("Record.dat", std::ios::in);
+    infile.open("Record.bin", std::ios::in);
 
     if (!infile)
     {
@@ -225,7 +276,7 @@ void Admin::AviewRoom()
     std::cout << std::setw(totalWidth) << std::setfill('-') << "" << std::endl;
     std::cout << std::setfill(' ');
     std::cout << std::setw(5) << std::left << "S.N"
-              << std::setw(20) << std::left << "Room"
+              << std::setw(5) << std::left << "Room"
               << std::setw(20) << std::left << "Name"
               << std::setw(20) << std::left << "Contact"
               << std::endl;
@@ -242,7 +293,6 @@ void Admin::AviewRoom()
                   << std::setw(5) << std::left << roomNo
                   << std::setw(20) << std::left << name
                   << std::setw(20) << std::left << contact
-                  //   << std::setw(20) << std::left << identityNo
                   << std::endl;
     }
     infile.close();

@@ -1,11 +1,11 @@
 faci  
-   FACILITIES                                               
-0. swimming pool                  
-1. free wifi                      
-2. extra shower                   
-3. camp fire                      
-4. house on rent                  
-5. vehicles on rent               
-6. tour guid                      
+   FACILITIES of HOTEL Aa-Ka-Ma                                               
+0. Swimming Pool                  
+1. Free Wi-Fi                      
+2. Extra Shower                   
+3. Camp Fire                      
+4. Horse on rent                  
+5. Vehicles on rent               
+6. Tour Guide                      
 
 
